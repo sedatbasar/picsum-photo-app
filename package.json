@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "lint:fix": "next lint --fix",
+    "lint:fix": "next lint --ignore-path .eslintignore --fix",
     "prettier": "prettier --check .",
     "prettier:fix": "prettier --write ."
   },
@@ -28,8 +28,6 @@
     "eslint-config-next": "15.2.2",
     "eslint-plugin-import": "^2.31.0",
     "eslint-plugin-jsx-a11y": "^6.10.2",
-    "husky": "^9.1.7",
-    "lint-staged": "^15.5.0",
     "prettier": "^3.5.3",
     "tailwindcss": "^4",
     "typescript": "^5",
