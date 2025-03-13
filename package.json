@@ -9,7 +9,8 @@
     "lint": "next lint",
     "lint:fix": "next lint --fix",
     "prettier": "prettier --check .",
-    "prettier:fix": "prettier --write ."
+    "prettier:fix": "prettier --write .",
+    "prepare": "husky"
   },
   "dependencies": {
     "next": "15.2.2",
@@ -34,5 +35,11 @@
     "tailwindcss": "^4",
     "typescript": "^5",
     "zod": "^3.24.2"
+  },
+  "lint-staged": {
+    "*.{js,ts,jsx,tsx}": [
+      "npm run lint:fix",
+      "npm run prettier:fix"
+    ]
   }
 }
