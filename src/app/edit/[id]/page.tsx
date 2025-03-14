@@ -1,10 +1,11 @@
 'use client';
 
 import Image from 'next/image';
-import { useReducer, useState, useEffect, use, useMemo } from 'react';
+import { useReducer, useState, useEffect, use } from 'react';
 import { z } from 'zod';
 import { useSearchParams, useRouter } from 'next/navigation';
 import { ArrowLeft } from 'lucide-react';
+import debounce from 'lodash.debounce';
 
 import { Button } from '@/components/ui/button';
 
@@ -19,7 +20,7 @@ const editSchema = z.object({
 });
 
 type State = z.infer<typeof editSchema>;
-type Action = { field: keyof State; value: string | boolean | number };
+type Action = { field: keyof State; value: State[keyof State] };
 
 const reducer = (state: State, action: Action): State => ({
   ...state,
@@ -43,22 +44,15 @@ export default function EditImagePage({
   };
 
   const [state, dispatch] = useReducer(reducer, initialState);
+  const [image, setImage] = useState({
+    url: `https://picsum.photos/id/${resolvedParams.id}/${initialState.width}/${initialState.height}?blur=${initialState.blur}${initialState.greyscale ? '&grayscale' : ''}`,
+    width: initialState.width,
+    height: initialState.height,
+  });
   const [isUpdating, setIsUpdating] = useState(false);
   const validationResult = editSchema.safeParse(state);
 
-  const imageUrl = useMemo(
-    () =>
-      `https://picsum.photos/id/${resolvedParams.id}/${state.width}/${state.height}?blur=${state.blur}${state.greyscale ? '&grayscale' : ''}`,
-    [state, resolvedParams],
-  );
-
-  useEffect(() => {
-    setIsUpdating(true);
-    const timeout = setTimeout(() => setIsUpdating(false), 300);
-    return () => clearTimeout(timeout);
-  }, [state]);
-
-  useEffect(() => {
+  const updateSearchParams = () => {
     const params = new URLSearchParams();
     params.set('width', state.width.toString());
     params.set('height', state.height.toString());
@@ -66,7 +60,23 @@ export default function EditImagePage({
     params.set('greyscale', state.greyscale.toString());
 
     router.replace(`?${params.toString()}`, { scroll: false });
-  }, [state, router]);
+  };
+
+  const updateParams = debounce(() => {
+    setImage({
+      url: `https://picsum.photos/id/${resolvedParams.id}/${state.width}/${state.height}?blur=${state.blur}${state.greyscale ? '&grayscale' : ''}`,
+      width: state.width,
+      height: state.height,
+    });
+    updateSearchParams();
+    setIsUpdating(false);
+  }, 300);
+
+  useEffect(() => {
+    setIsUpdating(true);
+    updateParams();
+    return () => updateParams.cancel();
+  }, [state]);
 
   return (
     <main className="p-4">
@@ -159,10 +169,10 @@ export default function EditImagePage({
         )}
         <div className="relative">
           <Image
-            src={imageUrl}
+            src={image.url}
             alt="Preview"
-            width={state.width}
-            height={state.height}
+            width={image.width}
+            height={image.height}
             className={`object-cover rounded transition-opacity duration-300 ${isUpdating ? 'opacity-50' : 'opacity-100'}`}
           />
         </div>
