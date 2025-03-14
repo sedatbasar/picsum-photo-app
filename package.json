@@ -10,7 +10,9 @@
     "lint:fix": "next lint --ignore-path .eslintignore --fix",
     "prettier": "prettier --check .",
     "prettier:fix": "prettier --write .",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "test": "vitest --run",
+    "test:watch": "vitest --watch"
   },
   "dependencies": {
     "@radix-ui/react-slot": "^1.1.2",
@@ -27,19 +29,26 @@
   "devDependencies": {
     "@eslint/eslintrc": "^3",
     "@tailwindcss/postcss": "^4",
+    "@testing-library/jest-dom": "^6.6.3",
+    "@testing-library/react": "^16.2.0",
+    "@testing-library/user-event": "^14.6.1",
+    "@types/jest": "^29.5.14",
     "@types/lodash.debounce": "^4.0.9",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "@typescript-eslint/eslint-plugin": "^8.26.1",
     "@typescript-eslint/parser": "^8.26.1",
+    "@vitejs/plugin-react": "^4.3.4",
     "eslint": "^9",
     "eslint-config-next": "15.2.2",
     "eslint-plugin-import": "^2.31.0",
     "eslint-plugin-jsx-a11y": "^6.10.2",
+    "jsdom": "^26.0.0",
     "prettier": "^3.5.3",
     "tailwindcss": "^4",
     "typescript": "^5",
+    "vitest": "^3.0.8",
     "zod": "^3.24.2"
   }
 }
