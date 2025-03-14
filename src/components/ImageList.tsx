@@ -8,7 +8,6 @@ import { getImages } from '@/api/get-images';
 import { Card, CardContent } from '@/components/ui/card';
 
 import { Skeleton } from './ui/skeleton';
-import { Pagination } from './Pagination';
 
 export const IMAGES_PER_PAGE = 12;
 
@@ -73,7 +72,6 @@ export default function ImageList({ currentPage }: { currentPage: number }) {
           </Card>
         ))}
       </div>
-      <Pagination currentPage={currentPage} totalPages={10} />
     </>
   );
 }
