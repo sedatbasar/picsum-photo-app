@@ -83,6 +83,11 @@ npm run test:watch
   - 📦 **Type Checking** with TypeScript
   - 🧪 **Unit Testing** with Vitest
 
+### ESLint Custom Rules
+
+- 🚀 **no-unnecessary-condition**: Prevents unnecessary condition checks, ensuring cleaner and more efficient code.
+- 📦 **import/order**: Enforces a consistent order for imports, improving code readability.
+
 ### Run locally:
 
 - Lint:
