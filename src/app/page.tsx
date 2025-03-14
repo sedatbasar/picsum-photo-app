@@ -9,9 +9,9 @@ export default async function Home({
   const currentPage = parseInt(awaitedSearchParams.page || '1', 10);
 
   return (
-    <main className="p-4 container mx-auto">
+    <>
       <h1 className="text-2xl font-bold mb-4">Picsum Photo Gallery</h1>
       <ImageList currentPage={currentPage} />
-    </main>
+    </>
   );
 }
