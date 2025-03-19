@@ -1,17 +1,14 @@
-'use client';
-
-import { useEffect, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 
-import { getImages } from '@/api/get-images';
 import { Card, CardContent } from '@/components/ui/card';
+import { getImages } from '@/api/get-images';
 
 import { Skeleton } from './ui/skeleton';
 
 export const IMAGES_PER_PAGE = 12;
 
-const ImageListSkeleton = () => (
+export const ImageListSkeleton = () => (
   <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
     {Array.from({ length: IMAGES_PER_PAGE }).map((_, index) => (
       <Card key={index} className="shadow-lg">
@@ -23,28 +20,12 @@ const ImageListSkeleton = () => (
   </div>
 );
 
-interface ImageType {
-  id: string;
-  author: string;
-  download_url: string;
+interface PropsType {
+  currentPage: number;
 }
 
-export default function ImageList({ currentPage }: { currentPage: number }) {
-  const [images, setImages] = useState<ImageType[]>([]);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    setLoading(true);
-    getImages(currentPage, IMAGES_PER_PAGE).then((data) => {
-      setImages(data);
-      setLoading(false);
-    });
-  }, [currentPage]);
-
-  if (loading) {
-    return <ImageListSkeleton />;
-  }
-
+export default async function ImageList({ currentPage }: PropsType) {
+  const images = await getImages(currentPage, IMAGES_PER_PAGE);
   return (
     <>
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
