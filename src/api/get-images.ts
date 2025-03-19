@@ -1,6 +1,6 @@
 import { z } from 'zod';
 
-const ImageSchema = z.object({
+export const ImageSchema = z.object({
   id: z.string(),
   author: z.string(),
   download_url: z.string().url(),
