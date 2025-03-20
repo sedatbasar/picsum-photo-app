@@ -43,10 +43,14 @@ export default async function ImageList({ currentPage }: PropsType) {
                     fill
                     sizes="(max-width: 768px) 50vw, 25vw"
                     className="rounded cursor-pointer object-cover inset-0 w-full h-full"
+                    data-testid={`image-${image.id}`}
                   />
                 </Link>
               </div>
-              <p className="absolute bottom-2 left-2 text-sm text-muted-foreground bg-white bg-opacity-50 p-1 rounded">
+              <p
+                className="absolute bottom-2 left-2 text-sm text-muted-foreground bg-white bg-opacity-50 p-1 rounded"
+                data-testid={`author-${image.id}`}
+              >
                 By {image.author}
               </p>
             </CardContent>
