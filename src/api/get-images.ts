@@ -1,10 +1,12 @@
 import { z } from 'zod';
 
-export const ImageSchema = z.object({
+const ImageSchema = z.object({
   id: z.string(),
   author: z.string(),
   download_url: z.string().url(),
 });
+
+export type Image = z.infer<typeof ImageSchema>;
 
 export const getImages = async (page: number, limit: number) => {
   const res = await fetch(
