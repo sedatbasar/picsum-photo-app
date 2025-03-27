@@ -174,7 +174,7 @@ export default function EditImagePage({
             width={image.width}
             height={image.height}
             className={`object-cover rounded transition-opacity duration-300 ${isUpdating ? 'opacity-50' : 'opacity-100'}`}
-            quality={41}
+            quality={40}
           />
         </div>
       </div>
