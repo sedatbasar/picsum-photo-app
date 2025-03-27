@@ -44,6 +44,8 @@ export default async function ImageList({ currentPage }: PropsType) {
                     sizes="(max-width: 768px) 50vw, 25vw"
                     className="rounded cursor-pointer object-cover inset-0 w-full h-full"
                     data-testid={`image-${image.id}`}
+                    quality={40}
+                    placeholder="empty"
                   />
                 </Link>
               </div>
